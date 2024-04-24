@@ -9,15 +9,18 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from Utils.response import SuccessResponse, FailureResponse
-from Utils.viewset import RetrieveModelMixinPlus, GenericViewSetPlus, ListModelMixinPlus
+from Utils.viewset import ModelViewSetPlus
 from log.views import create_log
 from public.models import User
+from public.serializers import UserSerializer
 
 
-class UserViewSet(RetrieveModelMixinPlus, ListModelMixinPlus, GenericViewSetPlus):
+class UserViewSet(ModelViewSetPlus):
     model = User
-    fields = ["code", "name"]
-    pagination_class = None
+    search_fields = ["name", "username"]
+    filterset_fields = {
+        'gender': ['exact']
+    }
 
 
 class LoginView(TokenObtainPairView):

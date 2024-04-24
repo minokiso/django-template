@@ -1,11 +1,10 @@
 import traceback
-from datetime import datetime
 from functools import wraps
 
-from rest_framework import mixins, serializers, status
+from rest_framework import mixins
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet
 
 from Utils.response import SuccessResponse, FailureResponse
 
@@ -47,10 +46,7 @@ class UpdateModelMixinPlus(mixins.UpdateModelMixin):
 class DestroyModelMixinPlus(mixins.DestroyModelMixin):
     @handle_error()
     def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.deleted_at = datetime.now().timestamp()
-        instance.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return super().destroy(request, *args, **kwargs)
 
 
 class ListModelMixinPlus(mixins.ListModelMixin):

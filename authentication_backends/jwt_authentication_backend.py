@@ -9,11 +9,14 @@ class JWTAuthenticationBackend(BaseBackend):
         try:
             username = request.data.get('username')
             if not username:
-                raise Exception("请传入用户名")
+                raise Exception("Please enter username")
             password = request.data.get('password')
             if not password:
-                raise Exception("请传入密码")
-            user = self.UserModel.objects.get(username=username, password=password)
+                raise Exception("Please enter password")
+            role = request.data.get('role')
+            if not role:
+                raise Exception("Please enter role")
+            user = self.UserModel.objects.get(username=username, password=password, role=role)
             return user
         except Exception:
             return None

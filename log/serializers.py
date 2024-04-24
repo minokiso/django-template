@@ -1,8 +1,6 @@
-from rest_framework import serializers
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from rest_framework.serializers import ModelSerializer
 
 from log.models import Log
-from public.models import User
 
 
 class LogSerializer(ModelSerializer):

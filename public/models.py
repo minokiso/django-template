@@ -9,18 +9,27 @@ from public.utils.file import generate_filtered_file_list
 
 
 class User(AbstractBaseUser):
-    code = models.CharField(max_length=40, db_column='编号', primary_key=True)
-    origin = models.CharField(max_length=10, db_column='来源')
-    name = models.CharField(max_length=200, db_column='名称')
-    username = models.CharField(max_length=10, db_column='账号', unique=True)
-    password = models.CharField(max_length=20, db_column='密码', blank=True, null=True)
+    ROLES = (
+        ("User", "User"),
+        ("Admin", "Admin"),
+    )
+    GENDERS = (
+        (1, "Male"),
+        (0, "Female"),
+    )
+    name = models.CharField(max_length=200)
+    gender = models.SmallIntegerField(choices=GENDERS, blank=True, null=True)
+    role = models.CharField(max_length=20, choices=ROLES, blank=True, null=True, default="User")
+    username = models.CharField(max_length=10, unique=True)
+    password = models.CharField(max_length=20, blank=True, null=True)
+    avatar = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     last_login = None
     USERNAME_FIELD = "username"
     objects = BaseUserManager()
 
     class Meta:
-        managed = False
-        db_table = 'SJDW'
+        db_table = 'user'
 
     # def get_file_tree(self):
     #     media_root = os.path.join(settings.MEDIA_ROOT, self.name)
@@ -36,7 +45,3 @@ class User(AbstractBaseUser):
         if os.path.exists(media_root):
             generate_filtered_file_list(media_root, file_list, time_list, _filter)
         return file_list
-
-    @property
-    def is_superuser(self):
-        return self.code == settings.SUPER_USER_CODE

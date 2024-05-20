@@ -9,3 +9,4 @@ migrations/
 *.rar
 *.zip
 .idea
+/conf.py

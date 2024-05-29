@@ -2,11 +2,11 @@
 import traceback
 
 from rest_framework.mixins import ListModelMixin
-from rest_framework.viewsets import ViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet
 
 from Utils.response import SuccessResponse, FailureResponse
-from log.models import Log
-from log.serializers import LogSerializer
+from apps.log.models import Log
+from apps.log.serializers import LogSerializer
 
 
 class LogViewSet(GenericViewSet, ListModelMixin):

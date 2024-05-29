@@ -2,7 +2,6 @@ from django.core.validators import validate_ipv46_address
 from django.db import models
 
 # Create your models here.
-from public.models import User
 
 
 class Log(models.Model):

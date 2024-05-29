@@ -10,9 +10,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from Utils.response import SuccessResponse, FailureResponse
 from Utils.viewset import ModelViewSetPlus
-from log.views import create_log
-from public.models import User
-from public.serializers import UserSerializer
+from apps.log.views import create_log
+from apps.public.models import User
 
 
 class UserViewSet(ModelViewSetPlus):

@@ -16,9 +16,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
-    'public',
+    'apps.public',
     'sslserver',
-    'log'
+    'apps.log'
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -63,7 +63,7 @@ try:
     from conf import _DATABASES
     DATABASES = _DATABASES
 except Exception as e:
-    print("使用默认sqlite数据库")
+    print("未找到数据库配置，使用默认sqlite数据库")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from log.models import Log
+from apps.log.models import Log
 
 
 class LogSerializer(ModelSerializer):

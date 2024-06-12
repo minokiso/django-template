@@ -53,7 +53,7 @@ REST_FRAMEWORK = {
     ]
 }
 SIMPLE_JWT = {
-    "TOKEN_OBTAIN_SERIALIZER": "public.serializers.RoleTokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "apps.public.serializers.RoleTokenObtainPairSerializer",
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
 }
 ROOT_URLCONF = 'server.urls'

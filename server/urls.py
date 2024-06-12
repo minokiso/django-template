@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
 from apps.log.views import LogViewSet
-from apps.public.views import LoginView, UserViewSet
+from apps.public.views import LoginView, UserViewSet, CaptchaView
 
 router = SimpleRouter()
 router.register(r"user", UserViewSet, basename="user")

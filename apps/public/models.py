@@ -20,6 +20,8 @@ class User(AbstractBaseUser):
     role = models.CharField(max_length=20, choices=ROLE.choices, default=ROLE.user)
     username = models.CharField(max_length=10, unique=True)
     password = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, null=True)
+    dob = models.DateField(null=True)
     avatar = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     last_login = None

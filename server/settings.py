@@ -16,8 +16,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
-    'apps.public',
     'sslserver',
+    'captcha',
+    'apps.public',
     'apps.log'
 ]
 CORS_ALLOW_ALL_ORIGINS = True
@@ -61,6 +62,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 try:
     from conf import _DATABASES
+
     DATABASES = _DATABASES
 except Exception as e:
     print("未找到数据库配置，使用默认sqlite数据库")

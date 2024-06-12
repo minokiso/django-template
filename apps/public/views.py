@@ -1,15 +1,18 @@
 import os
 import traceback
 
+from captcha.helpers import captcha_image_url
+from captcha.models import CaptchaStore
 from django.conf import settings
 from django.http import HttpResponse
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from Utils.response import SuccessResponse, FailureResponse
-from Utils.viewset import ModelViewSetPlus
+from Utils.viewset import ModelViewSetPlus, handle_error
 from apps.log.views import create_log
 from apps.public.models import User
 
@@ -64,3 +67,17 @@ class FileView(ViewSet):
                 return response
         except Exception as e:
             return FailureResponse(str(e))
+
+
+class CaptchaView(APIView):
+    permission_classes = []
+
+    @handle_error()
+    def get(self, request):
+        # 生成验证码
+        key = CaptchaStore.generate_key()
+        # 获取验证码图片的URL
+        url = captcha_image_url(key)
+        if isinstance(url, HttpResponse):
+            raise Exception('获取验证码失败')
+        return {"key": key, "url": url}
